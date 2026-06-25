@@ -1,0 +1,16 @@
+# Carpeta de compilación
+build/
+
+# Archivos ejecutables
+*.exe
+
+# Archivos objeto
+*.o
+*.obj
+
+# Archivos temporales de CMake
+CMakeFiles/
+CMakeCache.txt
+
+# Configuración local de VSCode
+.vscode/
