@@ -69,10 +69,6 @@ void LoadMaze(MazeMap *map, MazeTexture *texture, const char *filename) {
     texture->floorTexture = LoadTexture("resources/floor_texture.png");
     texture->ceilingTexture = LoadTexture("resources/ceiling_texture.png");
 
-    if (texture->ceilingTexture.id == 0) {
-        printf("ERROR: ceiling texture no cargó\n");
-    }
-
     // Raylib crea la geometria de un cubo y se le asigna a su modelo
     Mesh wallMesh = GenMeshCube(1.0f, 2.0f, 1.0f);
     texture->wallModel = LoadModelFromMesh(wallMesh);

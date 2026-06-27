@@ -23,7 +23,7 @@ typedef struct {
 } MazeMap;
 
 
-/// Texturas para las paredes, techo y piso del mapa
+// Texturas para las paredes, techo y piso del mapa
 typedef struct {     
     Model wallModel;
     Model ceilingModel;
@@ -35,6 +35,8 @@ typedef struct {
 
 } MazeTexture;
 
+
+// Funciones a usar
 void LoadMaze(MazeMap *map, MazeTexture *texture, const char *filename);
 
 void DrawMaze(MazeMap *map, MazeTexture *texture);
