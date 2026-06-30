@@ -69,4 +69,3 @@ int main(void)
 // Texture2D background = LoadTexture("resources/... .png"); // Establecer imagen de fondo
 // 
 // 
-// 
