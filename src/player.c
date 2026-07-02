@@ -115,22 +115,55 @@ static Vector3 movementInput (Player *player) {
 // Analiza el movimiento del usuario y si este colisiona con un muro y actualiza su posicion
 static void movePlayer(MazeMap *map, Player *player, Vector3 movement) {
     
-    Vector3 nextPosition = player->position;                            // Crea una copia de la posicion actual para calcular la velocidad y colision
+    // Viendo sobre el manejo del movimiento de los videojuegos con respecto al choque con paredes, se recomienda separar x de z para no generar un paro total
+    // de movimiento al chocar con alguna pared en un solo eje, ademas viendo ejemplos e informacion sobre videojuegos, entendi que delta se utiliza como concepto
+    // para definir el tiempo en segundos que toma una computadora en renderizar el ultimo frame (por eso tambien los nombres de algunos comandos de Raylib)
 
-    // Aqui se obtiene el movimiento proximo tomando en cuenta 3 parametros: el movimiento ingresado, la velocidad establecida (unidades por segundo), y el tiempo transcurrido desde el ultimo frame
-    nextPosition.x += movement.x * player->speed * GetFrameTime();      
-    nextPosition.z += movement.z * player->speed * GetFrameTime();      
+    //----------------------------------------------------------------
+    // 1. Desplazamiento por frame del jugador
+    //----------------------------------------------------------------
+
+    float deltaTime = GetFrameTime();                                    // Obtiene el tiempo transcurrido desde el ultimo frame
+    
+    // Aqui se obtiene la distancia que el jugador intentara recorrer en ese frame tomando en cuenta 3 parametros: 
+    // El movimiento ingresado, la velocidad establecida (unidades por segundo), y el tiempo de frame
+    float deltaX = movement.x * player->speed * deltaTime;      
+    float deltaZ = movement.z * player->speed * deltaTime;
+
+    //----------------------------------------------------------------
+    // 2. Verificacion de movimiento en el eje x
+    //----------------------------------------------------------------
+
+    // Crea una copia de la posicion actual para calcular la velocidad y colision en el eje x
+    Vector3 nextPositionX = player->position;
+
+    nextPositionX.x += deltaX;
+
+    bool collisionX = CheckCollisionWithWalls(map, nextPositionX);
+
+    if (!collisionX) {
+        player->position.x = nextPositionX.x;
+    }
+
+    //----------------------------------------------------------------
+    // 3. Verificacion de movimiento en el eje z
+    //----------------------------------------------------------------
+    
+    Vector3 nextPositionZ = player->position;
+
+    nextPositionZ.z += deltaZ;
+
+    bool collisionZ = CheckCollisionWithWalls(map, nextPositionZ);
+
+    if (!collisionZ) {
+        player->position.z = nextPositionZ.z;
+    }
 
     // if (CheckCollisionWithWalls(map, nextPosition) == false) { 
     //     player->position = nextPosition;                                // En caso de no haber colision, la posicion actual se actualiza
     // } 
 
 
-    bool collision = CheckCollisionWithWalls(map, nextPosition);
-
-    if (!collision) {
-        player->position = nextPosition;
-    }
 }
 
 

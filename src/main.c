@@ -67,5 +67,6 @@ int main(void)
 // GetScreenHeight(void);  //obtener altura del monitor
 // GetScreenWidth(void);  // obtener ancho del monitor
 // Texture2D background = LoadTexture("resources/... .png"); // Establecer imagen de fondo
-// 
-// 
+// Raymath
+// Vector3Substract() // Util para el enemigo
+// Vector3Lerp() // Util para animaciones
