@@ -1,7 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <raylib.h>
+#include "raylib.h"
 
 #define MAX_TILES 15000
 
@@ -40,5 +40,7 @@ typedef struct {
 void LoadMaze(MazeMap *map, MazeTexture *texture, const char *filename);
 
 void DrawMaze(MazeMap *map, MazeTexture *texture);
+
+void UnloadMaze(MazeTexture *texture);
 
 #endif

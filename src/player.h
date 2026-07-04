@@ -12,6 +12,7 @@ typedef struct {
 
     float speed;
     int health;
+    bool hasKey;
 
     Vector3 forward;    // Movimiento frontal
     Vector3 right;      // Movimiento lateral

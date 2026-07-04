@@ -1,4 +1,3 @@
-#include "raylib.h"
 #include "map.h"
 
 #include <stdio.h>
@@ -47,7 +46,7 @@ void LoadMaze(MazeMap *map, MazeTexture *texture, const char *filename) {
 
             // Ubicacion de la salida (marcada con rojo)
             if (pixel.r == 255 && pixel.g == 0 && pixel.b == 0) {
-                map->exitPos = (Vector3){x, 0.5f, y};
+                map->exitPos = (Vector3){x, 1.0f, y};
             }
 
             // Ubicacion del enemigo (marcado con azul)
@@ -99,13 +98,15 @@ void LoadMaze(MazeMap *map, MazeTexture *texture, const char *filename) {
     .texture = texture->floorTexture;
 
     
-    UnloadImage(imMap);
-    UnloadImageColors(pixels);
+    UnloadImage(imMap);             // Se libera la informacion de imMap
+    UnloadImageColors(pixels);      // Se libera la informacion de pixels
 }
 
 
-
+// Carga los modelos y textura en el mapa
 void DrawMaze(MazeMap *map, MazeTexture *texture) {
+    
+    // Carga las paredes con su respectiva textura
     for (int i = 0; i < map->wallCount; i++) {
         DrawModel(
             texture->wallModel,
@@ -115,6 +116,7 @@ void DrawMaze(MazeMap *map, MazeTexture *texture) {
         );
     }
 
+    // Carga el piso con su respectiva textura
     for (int i = 0; i < map->floorCount; i++) {
         DrawModel(
             texture->floorModel,
@@ -123,7 +125,8 @@ void DrawMaze(MazeMap *map, MazeTexture *texture) {
             WHITE
         );
     }
-        
+     
+    // Carga el techo con su respectiva textura
     for (int i = 0; i < map->floorCount; i++) {
         DrawModel(
             texture->ceilingModel,
@@ -135,5 +138,17 @@ void DrawMaze(MazeMap *map, MazeTexture *texture) {
 }
 
 
+void UnloadMaze(MazeTexture *texture)
+{
+    // Libera los modelos de la GPU
+    UnloadModel(texture->wallModel);
+    UnloadModel(texture->floorModel);
+    UnloadModel(texture->ceilingModel);
+
+    // Libera las texturas
+    UnloadTexture(texture->wallTexture);
+    UnloadTexture(texture->floorTexture);
+    UnloadTexture(texture->ceilingTexture);
+}
 
 
