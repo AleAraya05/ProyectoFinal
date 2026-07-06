@@ -12,6 +12,7 @@ typedef struct {
 
     float speed;
     int health;
+    bool hasKey;
 
     Vector3 forward;    // Movimiento frontal
     Vector3 right;      // Movimiento lateral
@@ -22,6 +23,9 @@ typedef struct {
 
 // Funciones a usar
 void playerInit(MazeMap *map, Player *player);
+
+void playerReset(MazeMap *map, Player *player);
+
 void playerUpdate(MazeMap *map, Player *player);
 
 

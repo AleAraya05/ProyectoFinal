@@ -1,27 +1,41 @@
 #include "raymath.h"
-#include "raylib.h"
 
 #include "player.h"
-#include "collision.h"
-#include "map.h"
 
 #include "stdio.h"
+
 
 // Se inicializa al jugador con su informacion respectiva 
 void playerInit(MazeMap *map, Player *player) {
 
-    player->position = map->playerSpawn;
-    player->speed = 1.0f;
-    player->health = 1;
+    player->speed = 1.0f;    
     
+    player->camera.up = (Vector3){0.0f, 1.2f, 0.0f};
+    player->camera.fovy = 60.0f;
+    player->camera.projection = CAMERA_PERSPECTIVE;
+
+    playerReset(map, player);
+
+}
+
+
+
+// Establece los puntos iniciales para empezar una partida
+void playerReset(MazeMap *map, Player *player) {
+
+    player->position = map->playerSpawn;
+    player->health = 1;
+    player->hasKey = false;
+
     player->yaw = 0;
     player->pitch = 0;
 
     player->camera.position = map->playerSpawn;
-
-    player->camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-    player->camera.fovy = 60.0f;
-    player->camera.projection = CAMERA_PERSPECTIVE;
+    player->camera.target = (Vector3){
+        map->playerSpawn.x + 1.0f,
+        map->playerSpawn.y,
+        map->playerSpawn.z
+    };
 
 }
 
@@ -52,7 +66,7 @@ static void updateRotation(Player *player){
 
 
 
-// 
+// Calcula la direccion de los vectores forward y right
 static void calculateDirection(Player *player) {
     
     // Se utilizan seno y coseno ya que sus resultados siempre entraran en el rango de -1 y 1, los necesarios para determinar si la vista se
@@ -110,7 +124,7 @@ static Vector3 movementInput (Player *player) {
     return movement;
 }
 
-// player->speed * GetFrameTime();
+
 
 // Analiza el movimiento del usuario y si este colisiona con un muro y actualiza su posicion
 static void movePlayer(MazeMap *map, Player *player, Vector3 movement) {
@@ -159,11 +173,6 @@ static void movePlayer(MazeMap *map, Player *player, Vector3 movement) {
         player->position.z = nextPositionZ.z;
     }
 
-    // if (CheckCollisionWithWalls(map, nextPosition) == false) { 
-    //     player->position = nextPosition;                                // En caso de no haber colision, la posicion actual se actualiza
-    // } 
-
-
 }
 
 
@@ -189,7 +198,7 @@ static void updateCamera(Player *player) {
 }
 
 
-
+// Actualiza los parametros del jugador 
 void playerUpdate(MazeMap *map, Player *player) {
 
     updateRotation(player);                     // Chequea la rotacion del mouse
