@@ -1,6 +1,6 @@
-#include "raymath.h"
-
 #include "player.h"
+
+#include "raymath.h"
 
 #include "stdio.h"
 
