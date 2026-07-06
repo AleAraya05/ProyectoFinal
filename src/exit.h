@@ -17,6 +17,8 @@ typedef struct {
 
 void exitInit(ExitDoor *door, MazeMap *map);
 
+void exitReset(ExitDoor *door);
+
 void exitUpdate(ExitDoor *door, Player *player, MazeMap *map);
 
 void exitDraw(ExitDoor *door, MazeMap *map);

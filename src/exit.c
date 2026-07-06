@@ -6,9 +6,6 @@
 // Inicializa la salida
 void exitInit(ExitDoor *door, MazeMap *map) {
 
-    door->playerNearDoor = false;
-    door->winMatch = false;
-
     door->doorTexture = LoadTexture("resources/door_texture.png");
 
     // Raylib crea la geometria de un cubo y se le asigna a su modelo
@@ -20,7 +17,21 @@ void exitInit(ExitDoor *door, MazeMap *map) {
     .maps[MATERIAL_MAP_DIFFUSE] // Se utiliza para modificar la textura principal
     .texture = door->doorTexture; // Se le asigna la textura que se desea
 
+    exitReset(door);
+
 }
+
+
+
+// Establece los datos iniciales para empezar una partida
+void exitReset(ExitDoor *door) {
+
+    door->playerNearDoor = false;
+    door->winMatch = false;
+
+}
+
+
 
 // Actualiza el estado de la salida
 void exitUpdate(ExitDoor *door, Player *player, MazeMap *map) {
@@ -45,6 +56,8 @@ void exitUpdate(ExitDoor *door, Player *player, MazeMap *map) {
 
 }
 
+
+
 // Carga los modelos y textura en el mapa
 void exitDraw(ExitDoor *door, MazeMap *map) {
 
@@ -56,6 +69,7 @@ void exitDraw(ExitDoor *door, MazeMap *map) {
     );
 
 }
+
 
 
 // Escribe el texto correspondiente al acercarse a la puerta
@@ -80,6 +94,9 @@ void exitDrawUI(ExitDoor *door, Player *player) {
 
 }
 
+
+
+// Libera los recursos
 void exitUnload(ExitDoor *door) {
 
     UnloadModel(door->doorModel);

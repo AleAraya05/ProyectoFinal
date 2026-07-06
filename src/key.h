@@ -19,6 +19,8 @@ typedef struct {
 
 void keyInit(Key *key, MazeMap *map);
 
+void keyReset(Key *key, MazeMap *map);
+
 void keyUpdate(Key *key, Player *player);
 
 void keyDraw(Key *key);

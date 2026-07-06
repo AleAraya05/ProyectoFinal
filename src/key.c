@@ -10,13 +10,21 @@
 // Inicializa la llave con su informacion respectiva
 void keyInit(Key *key, MazeMap *map) {
 
-    int spawnKeyIndex = GetRandomValue(0, map->keySpawnCount - 1);  // Se randomiza la locacion de la llave
-
     // key->model = LoadModel("resources/MyFirstKey.obj");     // Se carga el modelo de la llave
 
     // Temporal por error de carga del modelo
     Mesh cube = GenMeshCube(0.3f, 0.3f, 0.3f);
     key->model = LoadModelFromMesh(cube);
+
+    keyReset(key, map);
+}
+
+
+
+// Establece los datos iniciales para empezar una partida
+void keyReset(Key *key, MazeMap *map) {
+
+    int spawnKeyIndex = GetRandomValue(0, map->keySpawnCount - 1);  // Se randomiza la locacion de la llave
 
     key->position = map->keySpawns[spawnKeyIndex];          // Se almacena posicion de spawn de la llave
 
@@ -24,6 +32,7 @@ void keyInit(Key *key, MazeMap *map) {
     key->playerNearKey = false;
 
 }
+
 
 
 // Actualiza la informacion de la llave

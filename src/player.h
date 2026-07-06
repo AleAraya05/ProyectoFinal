@@ -23,6 +23,9 @@ typedef struct {
 
 // Funciones a usar
 void playerInit(MazeMap *map, Player *player);
+
+void playerReset(MazeMap *map, Player *player);
+
 void playerUpdate(MazeMap *map, Player *player);
 
 

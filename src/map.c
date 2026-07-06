@@ -56,7 +56,7 @@ void LoadMaze(MazeMap *map, MazeTexture *texture, const char *filename) {
 
             // Posibles ubicaciones de las llaves (marcado en amarillo)
             if (pixel.r == 255 && pixel.g == 255 && pixel.b == 0) {
-                map->keySpawns[map->keySpawnCount] = (Vector3){x, 0.5f, y};
+                map->keySpawns[map->keySpawnCount] = (Vector3){x, 0.125f, y};
                 map->keySpawnCount++;
             }
 
